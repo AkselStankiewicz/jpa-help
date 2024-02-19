@@ -1,11 +1,14 @@
 package sda.springbasic.jpaworkshop.controller;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sda.springbasic.jpaworkshop.model.dto.DepartmentDto;
 import sda.springbasic.jpaworkshop.model.entity.Department;
 import sda.springbasic.jpaworkshop.service.DepartmentService;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @RestController
@@ -40,5 +43,21 @@ public class DepartmentController {
     @PostMapping("/updateById")
     public ResponseEntity<Department> updateById(@RequestBody Department department) {
         return ResponseEntity.ok(service.updateDepartmentById(department));
+    }
+
+    @GetMapping("/findAllByName/{name}")
+    public ResponseEntity<List<DepartmentDto>> findAllByName(@PathVariable String name) {
+        List<DepartmentDto> departmentsByName = service.findAllByName(name);
+        return ResponseEntity.ok(departmentsByName);
+    }
+
+    @PostMapping("/updateDepartment/{id}")
+    public ResponseEntity<Department> updateDepartment(@PathVariable Long id, @RequestBody DepartmentDto dto) {
+        return ResponseEntity.ok(service.updateDepartment(id, dto));
+    }
+
+    @PostMapping("/addDepartmentWithDto")
+    public ResponseEntity<Department> addDepartment(@RequestBody DepartmentDto department) throws SQLException {
+        return ResponseEntity.ok(service.addDepartmentByDto(department));
     }
 }

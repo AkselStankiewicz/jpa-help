@@ -1,5 +1,6 @@
 package sda.springbasic.jpaworkshop.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ public class InitService {
     private final FloorRepository floorRepository;
     private final SupervisorRepository supervisorRepository;
 
+    @Transactional
     public void createSimpleData() {
 
         Department department1 = new Department();
@@ -78,23 +80,23 @@ public class InitService {
 
         EntryCard entryCard4 = new EntryCard();
         entryCard4.setUuid(UUID.randomUUID());
-        entryCard4.setFloorAccess(Set.of(floor3,floor1, floor2));
+        entryCard4.setFloorAccess(Set.of(floor3, floor1, floor2));
 
         EntryCard entryCard5 = new EntryCard();
         entryCard5.setUuid(UUID.randomUUID());
-        entryCard5.setFloorAccess(Set.of(floor3,floor1, floor2));
+        entryCard5.setFloorAccess(Set.of(floor3, floor1, floor2));
 
         EntryCard entryCard6 = new EntryCard();
         entryCard6.setUuid(UUID.randomUUID());
-        entryCard6.setFloorAccess(Set.of(floor3,floor1, floor2));
+        entryCard6.setFloorAccess(Set.of(floor3, floor1, floor2));
 
         EntryCard entryCard7 = new EntryCard();
         entryCard7.setUuid(UUID.randomUUID());
-        entryCard7.setFloorAccess(Set.of(floor3,floor1, floor2));
+        entryCard7.setFloorAccess(Set.of(floor3, floor1, floor2));
 
         EntryCard entryCard8 = new EntryCard();
         entryCard8.setUuid(UUID.randomUUID());
-        entryCard8.setFloorAccess(Set.of(floor3,floor1, floor2));
+        entryCard8.setFloorAccess(Set.of(floor3, floor1, floor2));
 
         entryCardRepository.save(entryCard1);
         entryCardRepository.save(entryCard2);

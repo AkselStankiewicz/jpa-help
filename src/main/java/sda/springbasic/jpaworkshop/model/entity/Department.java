@@ -22,7 +22,7 @@ public class Department {
     @Embedded
     private Address address;
 
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Employee> employees;
 
