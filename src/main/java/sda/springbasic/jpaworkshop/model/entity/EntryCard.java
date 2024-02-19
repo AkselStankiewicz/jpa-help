@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -24,5 +25,12 @@ public class EntryCard {
     public EntryCard(UUID uuid) {
         this.uuid = uuid;
     }
+
+    @ManyToMany
+    @JoinTable(name = "floor_access",
+            joinColumns = @JoinColumn(name = "entry_card_id"),
+            inverseJoinColumns = @JoinColumn(name = "floor_id")
+    )
+    private Set<Floor> floorAccess;
 
 }

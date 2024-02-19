@@ -1,5 +1,6 @@
 package sda.springbasic.jpaworkshop.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import sda.springbasic.jpaworkshop.model.Address;
@@ -7,7 +8,7 @@ import sda.springbasic.jpaworkshop.model.Address;
 import java.util.List;
 
 @Entity
-//@Table(name = "DEPARTMENTS")
+@Table(name = "DEPARTMENTS")
 @NoArgsConstructor
 @Getter
 @Setter
@@ -22,6 +23,7 @@ public class Department {
     private Address address;
 
     @OneToMany(mappedBy = "department")
+    @JsonManagedReference
     private List<Employee> employees;
 
     public Department(String name, Address address) {
