@@ -22,4 +22,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     @Query("select e from Employee e where e.salary = :salary")
     Employee findEmployeeByMinOrMaxSalary(@Param("salary") BigDecimal salary);
+
+    List<Employee> findAllBySalaryBetween(BigDecimal min, BigDecimal max);
 }

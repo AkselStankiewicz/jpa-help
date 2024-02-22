@@ -43,7 +43,7 @@ public class EmployeeService {
         return mapper.toDto(employee1);
     }
 
-    public EmployeeDto findLowestWageEmployee(String minOrMax) {
+    public EmployeeDto findEmployeeWithMinOrMaxWage(String minOrMax) {
         BigDecimal salary;
         if (minOrMax.equals("min")) {
             salary = repo.findLowestSalary();
@@ -53,5 +53,15 @@ public class EmployeeService {
             throw new RuntimeException("Wrong param.");
         }
         return mapper.toDto(repo.findEmployeeByMinOrMaxSalary(salary));
+    }
+
+    public List<EmployeeDto> findEmployeesBetweenSalaries(BigDecimal min, BigDecimal max) {
+        List<Employee> allBySalaryBetween = repo.findAllBySalaryBetween(min, max);
+        if (allBySalaryBetween.isEmpty()) {
+            throw new RuntimeException("No employees in this salary range");
+        }
+        return allBySalaryBetween.stream()
+                .map(mapper::toDto)
+                .toList();
     }
 }

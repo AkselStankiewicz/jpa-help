@@ -7,6 +7,7 @@ import sda.springbasic.jpaworkshop.model.dto.EmployeeDto;
 import sda.springbasic.jpaworkshop.model.entity.Employee;
 import sda.springbasic.jpaworkshop.service.EmployeeService;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -31,9 +32,14 @@ public class EmployeeController {
         return ResponseEntity.ok(service.updateSalary(dto));
     }
 
-    @GetMapping("/lowestSalary")
+    @GetMapping("/lowestOrHighestSalary")
     private ResponseEntity<EmployeeDto> findLowestWageEmployee(@RequestParam String minOrMax) {
-        return ResponseEntity.ok(service.findLowestWageEmployee(minOrMax));
+        return ResponseEntity.ok(service.findEmployeeWithMinOrMaxWage(minOrMax));
+    }
+
+    @GetMapping("/salaryBetween")
+    private ResponseEntity<List<EmployeeDto>> findEmployeesBetweenSalaries(@RequestParam BigDecimal min, @RequestParam BigDecimal max) {
+        return ResponseEntity.ok(service.findEmployeesBetweenSalaries(min, max));
     }
 
 }

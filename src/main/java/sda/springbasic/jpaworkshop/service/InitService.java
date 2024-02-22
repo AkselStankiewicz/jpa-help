@@ -7,11 +7,14 @@ import org.springframework.stereotype.Service;
 import sda.springbasic.jpaworkshop.model.Address;
 import sda.springbasic.jpaworkshop.model.EmployeeType;
 import sda.springbasic.jpaworkshop.model.entity.*;
+import sda.springbasic.jpaworkshop.model.entity.test.Author;
+import sda.springbasic.jpaworkshop.model.entity.test.Book;
 import sda.springbasic.jpaworkshop.repository.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -24,6 +27,7 @@ public class InitService {
     private final EntryCardRepository entryCardRepository;
     private final FloorRepository floorRepository;
     private final SupervisorRepository supervisorRepository;
+    private final AuthorRepository authorRepository;
 
     @Transactional
     public void createSimpleData() {
@@ -223,5 +227,45 @@ public class InitService {
         employee8.setEntryCard(entryCard8);
         employeeRepository.save(employee8);
 
+        // Books //
+
+        Author author1 = new Author();
+        author1.setName("Mickiewicz");
+
+        Book book1 = new Book();
+        book1.setName("Pan Tadeusz");
+
+        Book book2 = new Book();
+        book2.setName("Dziady");
+
+        author1.setBooks(List.of(book1, book2));
+
+        authorRepository.save(author1);
+
+        Author author2 = new Author();
+        author2.setName("Sienkiewicz");
+
+        Book book3 = new Book();
+        book3.setName("Potop");
+
+        Book book4 = new Book();
+        book4.setName("Ogniem i Mieczem");
+
+        author2.setBooks(List.of(book3, book4));
+
+        authorRepository.save(author2);
+
+        Author author3 = new Author();
+        author3.setName("J.K. Rowling");
+
+        Book book5 = new Book();
+        book5.setName("Harry Potter i Komnata Tajemnic");
+
+        Book book6 = new Book();
+        book6.setName("Harry Potter i Kamień Filozoficzny");
+
+        author3.setBooks(List.of(book5, book6));
+
+        authorRepository.save(author3);
     }
 }
