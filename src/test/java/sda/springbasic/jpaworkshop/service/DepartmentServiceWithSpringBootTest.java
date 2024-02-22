@@ -1,24 +1,29 @@
 package sda.springbasic.jpaworkshop.service;
 
-import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import sda.springbasic.jpaworkshop.model.Address;
 import sda.springbasic.jpaworkshop.model.entity.Department;
 import sda.springbasic.jpaworkshop.repository.DepartmentRepository;
-import sda.springbasic.jpaworkshop.service.mapper.DepartmentMapper;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@ExtendWith(MockitoExtension.class)
-class DepartmentServiceTest {
+@SpringBootTest
+public class DepartmentServiceWithSpringBootTest {
 
-    private DepartmentService departmentService;
-    private DepartmentRepository departmentRepository;
+    @MockBean
+    DepartmentRepository departmentRepository;
+
+    @Autowired
+    DepartmentService departmentService;
+
     static long start;
     static long end;
 
@@ -32,11 +37,6 @@ class DepartmentServiceTest {
         end = System.nanoTime();
         System.out.println("Czas wykonania: " + (end - start)/1000000 + "ms");
     }
-    @BeforeEach
-    void setUp() {
-        departmentRepository = Mockito.mock(DepartmentRepository.class);
-        departmentService = new DepartmentService(departmentRepository, new DepartmentMapper());
-    }
 
     @Test
     void findDepartmentByName() {
@@ -45,41 +45,16 @@ class DepartmentServiceTest {
         Department department = new Department();
         department.setName(departmentName);
         department.setAddress(new Address("England", "London", "Buckingham Street", "01-011"));
+
         Mockito.when(departmentRepository.findByName(departmentName))
                 .thenReturn(Optional.of(department));
-
         //when
+
         Department departmentByName = departmentService.findDepartmentByName(departmentName);
 
         //then
         assertEquals(departmentName, departmentByName.getName());
+
     }
 
-    @Test
-    void findAllByAddress_City() {
-    }
-
-    @Test
-    void addDepartment() {
-    }
-
-    @Test
-    void deleteById() {
-    }
-
-    @Test
-    void updateDepartmentById() {
-    }
-
-    @Test
-    void findAllByName() {
-    }
-
-    @Test
-    void addDepartmentByDto() {
-    }
-
-    @Test
-    void updateDepartment() {
-    }
 }

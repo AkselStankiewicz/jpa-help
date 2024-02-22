@@ -17,6 +17,6 @@ public class JpaWorkshopApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        initService.createSimpleData();
+//        initService.createSimpleData();
     }
 }
