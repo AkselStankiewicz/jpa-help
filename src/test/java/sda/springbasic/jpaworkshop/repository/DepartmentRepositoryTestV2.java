@@ -6,16 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.jdbc.Sql;
 import sda.springbasic.jpaworkshop.model.Address;
 import sda.springbasic.jpaworkshop.model.entity.Department;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @DataJpaTest
+@Sql(scripts = "data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+//@Sql(scripts = "DELETE_ALL.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
-class DepartmentRepositoryTest {
+class DepartmentRepositoryTestV2 {
 
     @Autowired
     private DepartmentRepository departmentRepository;
@@ -35,10 +36,7 @@ class DepartmentRepositoryTest {
     @Test
     void findAllByName() {
         //given
-        Department department = new Department();
-        department.setName("IT");
-        department.setAddress(new Address("Poland", "Warsaw", "Nowy Świat", "00-000"));
-        departmentRepository.save(department);
+
         //when
         List<Department> departments = departmentRepository.findAllByName("IT");
         //then

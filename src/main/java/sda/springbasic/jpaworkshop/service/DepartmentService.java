@@ -56,10 +56,10 @@ public class DepartmentService {
     }
 
     @Transactional(rollbackFor = SQLException.class) // --> dzięki dodaniu rollbacka też save się nie wykona
-    public Department addDepartmentByDto(DepartmentDto department) throws SQLException {
+    public Department addDepartmentByDto(DepartmentDto department){
         Department save = repo.save(mapper.toEntity(department));
 //        throwSomeException(); --> poleci 500 i save się nie wykona
-        throwSQLException(); // --> tu zadziała, bo to jest unchecked exception i @Transactional go nie kmini
+//        throwSQLException(); // --> tu zadziała, bo to jest unchecked exception i @Transactional go nie kmini
         return save;
     }
 
